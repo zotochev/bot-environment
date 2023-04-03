@@ -5,26 +5,37 @@ Bot environment for fast creating and deploying of telegram bots.
 ## todo
 - [ ] setup docker compose environment
     - [ ] to support any number of bots
-    - [ ] secrets folder
-- [x] create nginx container
+    - secrets folder
+
 - [ ] create `bot interface`
+    - [ ] define common info for all bots
+        - [ ] database credentials and type
     - [ ] env vars
         - [x] define required env variables
-            * ADMINS="<telegram-id>,<telegram-id>"
-            * TELEGRAM_TOKEN="<token>"
-            * WEBHOOK_PATH="<endpoint>"
-            * WEBAPP_HOST="127.0.0.1"
-            * WEBAPP_PORT=9991
-            * PG_PORT="5432"
-            * PG_HOST="postgres"
-            * PG_USER="impresaone"
-            * PG_PASSWORD="123"
-        - [x] env variables should be set in .env file `bot/secrets/.env`
+            - TELEGRAM_TOKEN="<token>"
+            - WEBHOOK_PATH="<endpoint>"
+            - WEBAPP_HOST="127.0.0.1"
+            - WEBAPP_PORT=9991
+            - ADMINS="<telegram-id>,<telegram-id>"
+            - PG_PORT="5432"
+            - PG_HOST="postgres"
+            - PG_USER="impresaone"
+            - PG_PASSWORD="123"
+        - env variables should be set in .env file `bot/secrets/.env`
+            - should have `bot/secrets/.env.sample` file
+
+    - [ ] self registration mechanism
+        - send http request to nginx container
+        - format of registration request with:
+            - required env variables;
+            - bot name (unique);
+            - webhook: bool;
 
     - [ ] config
         - [ ] config compatible for admin interface
             - [ ] stored in database
 
+    - [ ] each bot has separate database
     - [ ] health check
     - [ ] restarter worker
         - [ ] on event in redis restart bot
@@ -33,8 +44,20 @@ Bot environment for fast creating and deploying of telegram bots.
 
 - [ ] create echo echo-bot repo using `bot interface`
     - [ ] auto restart of bot on update of configuration
-- [x] create postgres container
+    - [ ] setup test environment for bot
+- [ ] shop list bot
+    - [ ] remake for `bot interface`
+    - [ ] deploy in this environment
+
 - [ ] create admin interface for echo bot
-    * set env variables
-    * set database config variables
-- [ ] setup test environment for bot
+    - [ ] html template for admin settings
+        - [ ] yaml config for template
+        - [ ] http calls for triggering changes
+    - [ ] config applier worker
+        - receives http request makes changes to database
+    - set env variables
+    - set database config variables
+    - set predefined messages
+
+- [x] create nginx container
+- [x] create postgres container
