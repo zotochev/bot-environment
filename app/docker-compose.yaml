@@ -41,6 +41,13 @@ services:
 #    
 #        extra_hosts:
 #          - "host.docker.internal:host-gateway"
+#        secrets:
+#          - sip.json
+#          - t2s.json
+#        healthcheck:
+#          # https://stackoverflow.com/questions/47088261/restarting-an-unhealthy-docker-container-based-on-healthcheck
+#          test: [ "CMD", "python", "/app/call_receiver/src/workers/utils/healthcheck.py" ]
+#          interval: 10s
 
     postgres:
         restart: always    
@@ -52,8 +59,6 @@ services:
           - POSTGRES_DB=bot
           
         volumes:
-          # - ./postgres/init.postgres.sql:/docker-entrypoint-initdb.d/init.sql
-          # - ./postgres/db-restore:/tmp/restore
           - ./postgres/postgres-data:/var/lib/postgresql/data
 
     redis:
@@ -62,4 +67,10 @@ services:
         command: redis-server
         labels:
           NAME: redis
+
+# secrets:
+#   sip.json:
+#     file: call_receiver/secrets/sip.json
+#   t2s.json:
+#     file: call_receiver/secrets/t2s.json
 
