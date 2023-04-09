@@ -10,6 +10,10 @@ import logging
 
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
+from aiogram.dispatcher import Dispatcher
+from aiogram.dispatcher.webhook import SendMessage
+from aiogram.utils.executor import start_webhook
 
 
 load_dotenv("/run/secrets/echo_bot_webhook.env")
@@ -20,35 +24,57 @@ WEBHOOK_PATH = os.getenv('WEBHOOK_PATH')
 assert WEBHOOK_HOST, "WEBHOOK_HOST is None"
 assert WEBHOOK_PATH, "WEBHOOK_PATH is None"
 
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-
+WEBHOOK_URL = f"{WEBHOOK_HOST}/{WEBHOOK_PATH}"
 
 API_TOKEN = os.getenv('TELEGRAM_TOKEN')
-assert API_TOKEN is not None, f"ECHO BOT: telegram token is None."
+assert API_TOKEN is not None, f"ECHO BOT WEBHOOK: telegram token is None."
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# webserver settings
+WEBAPP_HOST = os.getenv('WEBAPP_HOST')
+WEBAPP_PORT = os.getenv('WEBAPP_PORT')
 
+assert WEBAPP_HOST, "WEBAPP_HOST is None"
+assert WEBAPP_PORT, "WEBAPP_PORT is None"
+# WEBAPP_HOST = '0.0.0.0'  # or ip
+# WEBAPP_PORT = 9001
 
-# Initialize bot and dispatcher
+logging.basicConfig(level=logging.DEBUG)
+
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
-
-
-@dp.message_handler(commands=['start', 'help'])
-async def send_welcome(message: types.Message):
-    """
-    This handler will be called when user sends `/start` or `/help` command
-    """
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+dp.middleware.setup(LoggingMiddleware())
 
 
 @dp.message_handler()
+
 async def echo(message: types.Message):
-    # old style:
-    # await bot.send_message(message.chat.id, message.text)
-    await message.answer(message.text)
+    # or reply INTO webhook
+    return SendMessage(message.chat.id, message.text)
+
+
+async def on_startup(dp):
+    await bot.set_webhook(WEBHOOK_URL)
+    logging.warning(f'in_startup setting webhook address: {WEBHOOK_URL}')
+
+
+async def on_shutdown(dp):
+    logging.warning('Shutting down..')
+
+    # Remove webhook (not acceptable in some cases)
+    await bot.delete_webhook()
+
+    logging.warning('Bye!')
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+
+    start_webhook(
+        dispatcher=dp,
+        webhook_path=f'/{WEBHOOK_PATH}',
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+        ssl_context=None,
+    )

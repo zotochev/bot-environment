@@ -31,6 +31,31 @@ services:
       secrets:
         - echo_bot.env
 
+    echo-bot-webhook:
+      build:
+        context: ./echo_bot_webhook
+
+      logging:
+        options:
+          max-size: "1m"
+          max-file: "3"
+
+      volumes:
+        - ./echo_bot_webhook:/app
+
+      command: sleep 10000
+      # command: python /app/main.py
+      #command: supervisord -c /app/supervisord.conf
+
+      environment:
+        ABC: "ABC"
+
+      env_file:
+        - .env
+
+      secrets:
+        - echo_bot_webhook.env
+
 #    bot:
 #        depends_on:
 #          - redis
@@ -96,6 +121,8 @@ services:
 secrets:
   echo_bot.env:
     file: secrets/echo_bot.env
+  echo_bot_webhook.env:
+    file: secrets/echo_bot_webhook.env
 
 #   t2s.json:
 #     file: call_receiver/secrets/t2s.json

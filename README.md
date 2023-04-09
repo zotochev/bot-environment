@@ -47,6 +47,8 @@ Bot environment for fast creating and deploying of telegram bots.
     - [ ] setup test environment for bot
 
 - [ ] create echo-bot with webhook
+  - [ ] nginx config for server
+  - [ ] nginx config nginx container
 
 - [ ] shop list bot
     - [ ] remake for `bot interface`
