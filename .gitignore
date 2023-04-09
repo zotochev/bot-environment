@@ -128,5 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# pycharm
+.idea
+
 # postgres
 app/postgres
+postgres
+
+# env
+app/.env

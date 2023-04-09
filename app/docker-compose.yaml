@@ -1,10 +1,25 @@
 services:
     nginx:
-        image: nginx
-        volumes:
-          - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-        ports:
-          - 8080:80
+      image: nginx
+      volumes:
+        - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      ports:
+        - 8080:80
+
+    echo-bot:
+      build:
+        context: ./echo_bot
+
+      logging:
+        options:
+          max-size: "1m"
+          max-file: "3"
+
+      volumes:
+        - ./echo_bot:/app
+
+      # command: sleep 10000
+      command: python /app/main.py
 
 #    bot:
 #        depends_on:
