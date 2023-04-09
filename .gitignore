@@ -137,3 +137,6 @@ postgres
 
 # env
 app/.env
+
+# system
+*.pid

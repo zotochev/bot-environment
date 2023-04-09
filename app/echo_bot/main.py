@@ -4,12 +4,19 @@ It echoes any incoming text messages.
 """
 
 
+import os
+
 import logging
 
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 
 
-API_TOKEN = '5305034368:AAGnUkZKTlo5mx2DXHrcEercrL9q6SpH3GU'
+load_dotenv("/run/secrets/echo_bot.env")
+
+
+API_TOKEN = os.getenv('TELEGRAM_TOKEN')
+assert API_TOKEN is not None, f"ECHO BOT: telegram token is None."
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

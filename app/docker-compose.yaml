@@ -19,7 +19,17 @@ services:
         - ./echo_bot:/app
 
       # command: sleep 10000
-      command: python /app/main.py
+      # command: python /app/main.py
+      command: supervisord -c /app/supervisord.conf
+
+      environment:
+        ABC: "ABC"
+
+      env_file:
+        - .env
+
+      secrets:
+        - echo_bot.env
 
 #    bot:
 #        depends_on:
@@ -83,9 +93,10 @@ services:
         labels:
           NAME: redis
 
-# secrets:
-#   sip.json:
-#     file: call_receiver/secrets/sip.json
+secrets:
+  echo_bot.env:
+    file: secrets/echo_bot.env
+
 #   t2s.json:
 #     file: call_receiver/secrets/t2s.json
 

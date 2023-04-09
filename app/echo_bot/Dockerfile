@@ -5,3 +5,6 @@ RUN apt-get install -y vim
 
 COPY ./requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
+RUN pip install supervisor
+
+WORKDIR /app

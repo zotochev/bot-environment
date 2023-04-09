@@ -2,25 +2,21 @@
 ## about
 Bot environment for fast creating and deploying of telegram bots.
 
+## Bot Interface
+- all requiered variables (api token) setup in `app/secrets/<bot-name>.env` file and connected to `/run/secrets` folder using secrets statment in `docker-compose.yaml` file
+- common env variables for all bots setup in `app/.env` file and connected to every bot using env-file statement in `docker-compose.yaml` file
+
 ## todo
 - [ ] setup docker compose environment
     - [ ] to support any number of bots
     - secrets folder
 
 - [ ] create `bot interface`
-    - [ ] define common info for all bots
-        - [ ] database credentials and type
-    - [ ] env vars
+    - [x] define common info for all bots
+        - [x] database credentials and type
+    - [x] env vars
         - [x] define required env variables
             - TELEGRAM_TOKEN="<token>"
-            - WEBHOOK_PATH="<endpoint>"
-            - WEBAPP_HOST="127.0.0.1"
-            - WEBAPP_PORT=9991
-            - ADMINS="<telegram-id>,<telegram-id>"
-            - PG_PORT="5432"
-            - PG_HOST="postgres"
-            - PG_USER="impresaone"
-            - PG_PASSWORD="123"
         - env variables should be set in .env file `bot/secrets/.env`
             - should have `bot/secrets/.env.sample` file
 
