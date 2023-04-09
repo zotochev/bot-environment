@@ -140,3 +140,6 @@ app/.env
 
 # system
 *.pid
+
+# secrets
+app/secrets/*.env

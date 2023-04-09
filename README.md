@@ -4,11 +4,15 @@ Bot environment for fast creating and deploying of telegram bots.
 
 ## Bot Interface
 - all requiered variables (api token) setup in `app/secrets/<bot-name>.env` file and connected to `/run/secrets` folder using secrets statment in `docker-compose.yaml` file
+    - TELEGRAM_TOKEN
+    - WEBHOOK_PATH
 - common env variables for all bots setup in `app/.env` file and connected to every bot using env-file statement in `docker-compose.yaml` file
+    - WEBHOOK_HOST
 
 ## todo
-- [ ] setup docker compose environment
-    - [ ] to support any number of bots
+- [x] setup docker compose environment
+    - [x] to support any number of bots
+        - support any number of bots will be achived by creating bot interface
     - secrets folder
 
 - [ ] create `bot interface`
@@ -41,6 +45,9 @@ Bot environment for fast creating and deploying of telegram bots.
 - [ ] create echo echo-bot repo using `bot interface`
     - [ ] auto restart of bot on update of configuration
     - [ ] setup test environment for bot
+
+- [ ] create echo-bot with webhook
+
 - [ ] shop list bot
     - [ ] remake for `bot interface`
     - [ ] deploy in this environment
