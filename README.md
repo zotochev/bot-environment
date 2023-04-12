@@ -25,7 +25,8 @@ Bot environment for fast creating and deploying of telegram bots.
             - should have `bot/secrets/.env.sample` file
 
     - [ ] self registration mechanism
-        - send http request to nginx container
+        - [x] split nginx config on common part and part for one bot
+        - [x] send http request to nginx container
         - format of registration request with:
             - required env variables;
             - bot name (unique);
