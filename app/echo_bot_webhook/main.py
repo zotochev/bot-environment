@@ -22,7 +22,6 @@ WEBHOOK_HOST = os.getenv('WEBHOOK_HOST')
 WEBHOOK_PATH = os.getenv('WEBHOOK_PATH')
 
 assert WEBHOOK_HOST, "WEBHOOK_HOST is None"
-assert WEBHOOK_PATH, "WEBHOOK_PATH is None"
 
 WEBHOOK_URL = f"{WEBHOOK_HOST}/{WEBHOOK_PATH}"
 
@@ -67,6 +66,7 @@ async def on_shutdown(dp):
 
 
 if __name__ == '__main__':
+    logging.warning(f"before start: `{WEBAPP_HOST}` - `{WEBAPP_PORT}`")
 
     start_webhook(
         dispatcher=dp,
