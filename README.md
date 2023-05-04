@@ -4,7 +4,7 @@ Bot environment for fast creating and deploying of telegram bots.
 
 ## Deploy
 Set `WEBHOOK_HOST` env variable in `.env` file to your server exposed url or ip address.
-```
+```bash
 docker compose up -d
 ```
 
@@ -16,28 +16,28 @@ docker compose up -d
     - WEBHOOK_HOST
 
 ## todo
-    - [ ] Registration mechanism:
-        - Create simple self written registration mechanism
-            - [ ] Script that sends requests to `services register`:
-                - on start up - register;
-                - on stop - unregister.
-            - [ ] Services register server in nginx container:
-                - listens for requests from services;
-                - on register:
-                    - creates nginx config and puts it to `/etc/nginx/bots` directory
-                    - sends back some payload
-                - in unregister:
-                    - deletes ngxin config from `/etc/nginx/bots`
-        - format of registration request with:
-            - required env variables;
-            - bot name (unique);
-            - webhook: bool;
-        - Patterns
-            - [Server side discovery](https://microservices.io/patterns/server-side-discovery.html)
-            - [Service registry](https://microservices.io/patterns/service-registry.html)
-            - [Self registration](https://microservices.io/patterns/self-registration.html)
-        - [x] split nginx config on common part and part for one bot
-        - [x] send http request to nginx container
+- [ ] Registration mechanism:
+    - Create simple self written registration mechanism
+        - [ ] Script that sends requests to `services register`:
+            - on start up - register;
+            - on stop - unregister.
+        - [ ] Services register server in nginx container:
+            - listens for requests from services;
+            - on register:
+                - creates nginx config and puts it to `/etc/nginx/bots` directory
+                - sends back some payload
+            - in unregister:
+                - deletes ngxin config from `/etc/nginx/bots`
+    - format of registration request with:
+        - required env variables;
+        - bot name (unique);
+        - webhook: bool;
+    - Patterns
+        - [Server side discovery](https://microservices.io/patterns/server-side-discovery.html)
+        - [Service registry](https://microservices.io/patterns/service-registry.html)
+        - [Self registration](https://microservices.io/patterns/self-registration.html)
+    - [x] split nginx config on common part and part for one bot
+    - [x] send http request to nginx container
 
 - [x] setup docker compose environment
     - [x] to support any number of bots
