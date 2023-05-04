@@ -16,20 +16,6 @@ docker compose up -d
     - WEBHOOK_HOST
 
 ## todo
-- [x] setup docker compose environment
-    - [x] to support any number of bots
-        - support any number of bots will be achived by creating bot interface
-    - secrets folder
-
-- [ ] create `bot interface`
-    - [x] define common info for all bots
-        - [x] database credentials and type
-    - [x] env vars
-        - [x] define required env variables
-            - TELEGRAM_TOKEN="<token>"
-        - env variables should be set in .env file `bot/secrets/.env`
-            - should have `bot/secrets/.env.sample` file
-
     - [ ] Registration mechanism:
         - Create simple self written registration mechanism
             - [ ] Script that sends requests to `services register`:
@@ -52,6 +38,20 @@ docker compose up -d
             - [Self registration](https://microservices.io/patterns/self-registration.html)
         - [x] split nginx config on common part and part for one bot
         - [x] send http request to nginx container
+
+- [x] setup docker compose environment
+    - [x] to support any number of bots
+        - support any number of bots will be achived by creating bot interface
+    - secrets folder
+
+- [ ] create `bot interface`
+    - [x] define common info for all bots
+        - [x] database credentials and type
+    - [x] env vars
+        - [x] define required env variables
+            - TELEGRAM_TOKEN="<token>"
+        - env variables should be set in .env file `bot/secrets/.env`
+            - should have `bot/secrets/.env.sample` file
 
     - [ ] config
         - [ ] config compatible for admin interface
