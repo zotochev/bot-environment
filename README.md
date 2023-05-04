@@ -1,6 +1,12 @@
-# bot-template
+# bot-environment
 ## about
 Bot environment for fast creating and deploying of telegram bots.
+
+## Deploy
+Set `WEBHOOK_HOST` env variable in `.env` file to your server exposed url or ip address.
+```
+docker compose up -d
+```
 
 ## Bot Interface
 - all requiered variables (api token) setup in `app/secrets/<bot-name>.env` file and connected to `/run/secrets` folder using secrets statment in `docker-compose.yaml` file
