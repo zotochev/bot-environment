@@ -32,8 +32,8 @@ docker compose up -d
         - [ ] Services register server in nginx container:
             - listens for requests from services;
             - on register:
-                - creates nginx config and puts it to `/etc/nginx/bots` directory
-                - sends back some payload
+                - creates nginx config and puts it to `/etc/nginx/bots` directory.
+                - sends back endpoint to register bot in telegram API.
             - in unregister:
                 - deletes ngxin config from `/etc/nginx/bots`
     - Heath checker for unregistration of stopped services.
