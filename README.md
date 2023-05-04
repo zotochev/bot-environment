@@ -3,7 +3,8 @@
 Bot environment for fast creating and deploying of telegram bots.
 
 ## Deploy
-Set `WEBHOOK_HOST` env variable in `.env` file to your server exposed url or ip address.
+- Create `.env` file in `app` directory and set there varibales that relaited to all bots.
+- Set `WEBHOOK_HOST` env variable in `.env` file to your server exposed url or ip address.
 ```bash
 docker compose up -d
 ```
@@ -18,9 +19,13 @@ docker compose up -d
 ## todo
 - [ ] Registration mechanism:
     - Create simple self written registration mechanism
+        - **Why?**:
+            - To setup nginx routing for webhook mechanism.
+            - To get url from nginx container for webhook registration on telegram API.
         - [ ] Script that sends requests to `services register`:
             - on start up - register;
-            - on stop - unregister.
+            - on stop - unregister;
+            - on fail? - uregister by healthchecker?.
         - [ ] Services register server in nginx container:
             - listens for requests from services;
             - on register:
@@ -28,6 +33,7 @@ docker compose up -d
                 - sends back some payload
             - in unregister:
                 - deletes ngxin config from `/etc/nginx/bots`
+    - Heath checker for unregistration of stopped services.
     - format of registration request with:
         - required env variables;
         - bot name (unique);
@@ -72,19 +78,17 @@ docker compose up -d
   - [x] nginx config for server
   - [x] nginx config nginx container
 
-- [ ] shop list bot
-    - [ ] remake for `bot interface`
-    - [ ] deploy in this environment
+- bots to deploy:
+    - [Shop list](https://github.com/zotochev/shop-list-telegram-bot)
+    - [Deutschesverb](https://github.com/lama-imp/deutschesverb_bot)
 
 - [ ] Create frontend admin interface for echo bot
     - [ ] html template for admin settings
         - [ ] yaml config for template
-        - [ ] http calls for triggering changes
-    - [ ] config applier worker
-        - receives http request makes changes to database
+        - [ ] api calls for triggering changes
+    - [ ] Config applier worker
+        - receives api request makes changes to database
     - set env variables
-    - set database config variables
-    - set predefined messages
 
 - [x] create nginx container
 - [x] create postgres container
