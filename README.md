@@ -30,13 +30,28 @@ docker compose up -d
         - env variables should be set in .env file `bot/secrets/.env`
             - should have `bot/secrets/.env.sample` file
 
-    - [ ] self registration mechanism
-        - [x] split nginx config on common part and part for one bot
-        - [x] send http request to nginx container
+    - [ ] Registration mechanism:
+        - Create simple self written registration mechanism
+            - [ ] Script that sends requests to `services register`:
+                - on start up - register;
+                - on stop - unregister.
+            - [ ] Services register server in nginx container:
+                - listens for requests from services;
+                - on register:
+                    - creates nginx config and puts it to `/etc/nginx/bots` directory
+                    - sends back some payload
+                - in unregister:
+                    - deletes ngxin config from `/etc/nginx/bots`
         - format of registration request with:
             - required env variables;
             - bot name (unique);
             - webhook: bool;
+        - Patterns
+            - [Server side discovery](https://microservices.io/patterns/server-side-discovery.html)
+            - [Service registry](https://microservices.io/patterns/service-registry.html)
+            - [Self registration](https://microservices.io/patterns/self-registration.html)
+        - [x] split nginx config on common part and part for one bot
+        - [x] send http request to nginx container
 
     - [ ] config
         - [ ] config compatible for admin interface
@@ -49,19 +64,19 @@ docker compose up -d
     - [ ] failure telegram notification
         - [ ] messanger worker that reads redis
 
-- [ ] create echo echo-bot repo using `bot interface`
+- [x] create echo echo-bot repo using `bot interface`
     - [ ] auto restart of bot on update of configuration
-    - [ ] setup test environment for bot
+    - [x] setup test environment for bot
 
-- [ ] create echo-bot with webhook
-  - [ ] nginx config for server
-  - [ ] nginx config nginx container
+- [x] create echo-bot with webhook
+  - [x] nginx config for server
+  - [x] nginx config nginx container
 
 - [ ] shop list bot
     - [ ] remake for `bot interface`
     - [ ] deploy in this environment
 
-- [ ] create admin interface for echo bot
+- [ ] Create frontend admin interface for echo bot
     - [ ] html template for admin settings
         - [ ] yaml config for template
         - [ ] http calls for triggering changes
