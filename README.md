@@ -15,9 +15,12 @@ docker compose up -d
     - WEBHOOK_PATH
 - common env variables for all bots setup in `app/.env` file and connected to every bot using env-file statement in `docker-compose.yaml` file
     - WEBHOOK_HOST
+- register worker (not sure if need):
+    - register and unregister bot.
+    - sets webhook on telegram API.
 
 ## todo
-- [ ] Registration mechanism:
+- [ ] Service registration mechanism:
     - Create simple self written registration mechanism
         - **Why?**:
             - To setup nginx routing for webhook mechanism.
@@ -45,10 +48,11 @@ docker compose up -d
     - [x] split nginx config on common part and part for one bot
     - [x] send http request to nginx container
 
-- [x] setup docker compose environment
-    - [x] to support any number of bots
-        - support any number of bots will be achived by creating bot interface
-    - secrets folder
+- [ ] register worker (example):
+    - **Why?**:
+        - register and unregister bot.
+        - sets webhook on telegram API.
+        - maybe no need to create such worker.
 
 - [ ] create `bot interface`
     - [x] define common info for all bots
@@ -70,14 +74,6 @@ docker compose up -d
     - [ ] failure telegram notification
         - [ ] messanger worker that reads redis
 
-- [x] create echo echo-bot repo using `bot interface`
-    - [ ] auto restart of bot on update of configuration
-    - [x] setup test environment for bot
-
-- [x] create echo-bot with webhook
-  - [x] nginx config for server
-  - [x] nginx config nginx container
-
 - bots to deploy:
     - [Shop list](https://github.com/zotochev/shop-list-telegram-bot)
     - [Deutschesverb](https://github.com/lama-imp/deutschesverb_bot)
@@ -92,3 +88,16 @@ docker compose up -d
 
 - [x] create nginx container
 - [x] create postgres container
+
+- [x] create echo echo-bot repo using `bot interface`
+    - [ ] auto restart of bot on update of configuration
+    - [x] setup test environment for bot
+
+- [x] create echo-bot with webhook
+  - [x] nginx config for server
+  - [x] nginx config nginx container
+
+- [x] setup docker compose environment
+    - [x] to support any number of bots
+        - support any number of bots will be achived by creating bot interface
+    - secrets folder
